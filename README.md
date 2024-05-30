@@ -1,4 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It creates % edits Solana Token Extensions with Web3.js.
+
+## Features
+- Login via wallet adapter into any supported wallet (phantom, solflare, e.t.c)
+- lists tokens that you have any authority on, including *mint authority, *metadata update authority, *fee withdraw authority, *fee config update authority.
+- Able to use the logged in phantom to create a new token
 
 ## Getting Started
 
