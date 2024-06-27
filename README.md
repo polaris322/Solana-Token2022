@@ -269,6 +269,10 @@ This code updates metadata of tokens such as token name, token symbol and token 
    ```js
    const hasFeeWithdrawAuthority = configAccountInfo.withdrawWithheldAuthority.equals(publicKey);
    ```
+5. Check fee withdrawal authority.
+   ```js
+   const hasFeeWithdrawAuthority = configAccountInfo.withdrawWithheldAuthority.equals(publicKey);
+   ```
    
 ## Deploy on Vercel
 
