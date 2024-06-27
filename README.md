@@ -246,8 +246,8 @@ This code updates metadata of tokens such as token name, token symbol and token 
 1. Get tokens that are owned by wallet.
    ```js
    const tokenAccounts = await walletConnection.getParsedTokenAccountsByOwner(
-   publicKey,
-   { programId: TOKEN_2022_PROGRAM_ID }
+      publicKey,
+      { programId: TOKEN_2022_PROGRAM_ID }
    );
    ```
 2. Check mint authority.
