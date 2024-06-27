@@ -57,6 +57,7 @@ export const createTokenWith2022Extension = async (publicKey, signTransaction, w
     // Maximum fee for transfers in token base units
     const maxFee = BigInt(9 * Math.pow(10, decimals));
 
+    // Set metadata of token
     const metadata = {
         mint: mint,
         name: token.name,
@@ -77,7 +78,7 @@ export const createTokenWith2022Extension = async (publicKey, signTransaction, w
         fromPubkey: publicKey, // Account that will transfer lamports to created account
         newAccountPubkey: mint, // Address of the account to create
         space: mintLen, // Amount of bytes to allocate to the created account
-        lamports, // Amount of lamports transferred to created account
+        lamports: lamports * 10, // Give enough amount of lamports transferred to created account to edit later
         programId: TOKEN_2022_PROGRAM_ID, // Program assigned as owner of created account
     });
 
@@ -172,6 +173,7 @@ export const createTokenWith2022Extension = async (publicKey, signTransaction, w
 
     // sign transaction with wallet
     const signedTransaction = await signTransaction(transaction);
+
     // Send the signed transaction to the cluster
     const signature = await walletConnection.sendRawTransaction(signedTransaction.serialize());
     await walletConnection.confirmTransaction(signature, COMMITMENT);
@@ -298,6 +300,7 @@ export const updateToken = async (publicKey, walletConnection, signTransaction, 
 
     // sign transaction with wallet
     const signedTransaction = await signTransaction(transaction);
+
     // Send the signed transaction to the cluster
     const signature = await walletConnection.sendRawTransaction(signedTransaction.serialize());
     await walletConnection.confirmTransaction(signature, COMMITMENT);
