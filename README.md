@@ -50,7 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
    // Maximum fee for transfers in token base units
     const maxFee = BigInt(9 * Math.pow(10, decimals));
     ```
-4. Set metadata 
+4. Set metadata.
     ```js
     // Set token metadata such as name, symbol and uri
     const metadata = {
@@ -222,7 +222,7 @@ This code updates metadata of tokens such as token name, token symbol and token 
         .add(updateUriInstruction)
         .add(updateSymbolInstruction);
    ```
-3. Get recent transaction and sign the new transaction with wallet
+3. Get recent transaction and sign the new transaction with wallet.
     ```js
    // Get the recent blockhash
     let { blockhash, lastValidBlockHeight } = await walletConnection.getLatestBlockhash(COMMITMENT);
@@ -241,7 +241,34 @@ This code updates metadata of tokens such as token name, token symbol and token 
     const signature = await walletConnection.sendRawTransaction(signedTransaction.serialize());
     await walletConnection.confirmTransaction(signature, COMMITMENT);
    ```
-   
+
+### Check authorities of a token
+1. Get tokens that are owned by wallet.
+   ```js
+   const tokenAccounts = await walletConnection.getParsedTokenAccountsByOwner(
+   publicKey,
+   { programId: TOKEN_2022_PROGRAM_ID }
+   );
+   ```
+2. Check mint authority.
+   ```js
+   const mintAccountInfo = await getMint(walletConnection, mint, COMMITMENT, TOKEN_2022_PROGRAM_ID);
+   const hasMintAuthority = mintAccountInfo.mintAuthority.equals(publicKey);
+   ```
+3. Check metadata update authority.
+   ```js
+   const metadata = await getTokenMetadata(
+        walletConnection, // Connection instance
+        mint, // PubKey of the Mint Account
+        COMMITMENT, // Commitment, can use undefined to use default
+        TOKEN_2022_PROGRAM_ID,
+   );
+   const hasMetadataUpdateAuthority = metadata && metadata.updateAuthority.equals(publicKey);
+   ```
+4. Check configuration update authority.
+   ```js
+   const hasFeeWithdrawAuthority = configAccountInfo.withdrawWithheldAuthority.equals(publicKey);
+   ```
    
 ## Deploy on Vercel
 
